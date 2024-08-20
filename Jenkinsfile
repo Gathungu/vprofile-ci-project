@@ -58,10 +58,13 @@ pipeline {
                         -Dsonar.jacoco.reportsPath=target/jacoco.exec \
                         -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
                 }
-
-                // timeout(time: 10, unit: 'MINUTES') {
-                //     waitForQualityGate abortPipeline: true
-                // }
+            }
+        }
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
     }
